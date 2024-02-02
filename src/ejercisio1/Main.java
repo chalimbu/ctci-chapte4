@@ -4,37 +4,26 @@ import java.util.*;
 public class Main {
 
     public static void main(String args[]){
-        int[][] adjacencyMatrix={
-                {0,1,0,0,0,0,0},
-                {1,0,1,0,0,0,0},
-                {0,1,0,1,1,0,0},
-                {0,0,1,0,0,0,0},
-                {0,0,1,0,0,0,1},
-                {0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0}
-        };
-        Graph g=new Graph(adjacencyMatrix);
-        System.out.println("is there a path? "+isThereAPath(g,g.nodes.get(0),g.nodes.get(5)));//node 1 an 7
+        int[] input={1,2,3,4,5,6,8};
+        NodeBinaryTree result=generateTree(input);
+        System.out.println("...");
     }
 
-    public static boolean isThereAPath(Graph graph,Node one,Node two){
-        Queue<Node> toVisit=new LinkedList<>();
-        if(one!=null){
-            one.visit=true;
-            toVisit.add(one);
+    public static NodeBinaryTree generateTree(int[] input){
+        return generateTreeRecursive(input,0,input.length);
+    }
+
+    private static NodeBinaryTree generateTreeRecursive(int[] input,int start,int end){
+        if(end-start<0 || (start==end&&end==input.length)){
+            return null;
         }
-        while(!toVisit.isEmpty()){
-            Node current=toVisit.remove();
-            if(current==two){
-                return true;
-            }
-            for(Node n:current.neighbours){
-                if(n.visit==false){
-                    n.visit=true;
-                    toVisit.add(n);
-                }
-            }
+        if(end==start){
+            return new NodeBinaryTree(input[start]);
         }
-        return false;
+        int midle=(start+end)/2;
+        NodeBinaryTree current=new NodeBinaryTree(input[midle]);
+        current.left=generateTreeRecursive(input,start,midle-1);
+        current.right=generateTreeRecursive(input,midle+1,end);
+        return current;
     }
 }
