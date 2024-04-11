@@ -1,4 +1,4 @@
-package ejercisio1;
+package co;
 import java.util.List;
 import java.util.ArrayList;
 public class Node{

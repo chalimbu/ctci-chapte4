@@ -1,4 +1,4 @@
-package ejercisio1;
+package co;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
